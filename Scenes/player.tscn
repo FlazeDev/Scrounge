@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://c61og11agxi8b"]
 
 [ext_resource type="Script" uid="uid://csbh0lqc378h8" path="res://Scripts/player.gd" id="1_6t5aa"]
-[ext_resource type="Script" uid="uid://djmbhteric0yk" path="res://Scripts/InputComponet.gd" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://duvno4qy3abuo" path="res://Scripts/MovementComponent.gd" id="3_vgqql"]
+[ext_resource type="Script" uid="uid://cjuqnruiho2c2" path="res://Scripts/InputComponent.gd" id="4_fkybt"]
 [ext_resource type="Script" uid="uid://clef0ct1itcwv" path="res://Scripts/CameraComponent.gd" id="4_vgqql"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
@@ -37,12 +37,7 @@ mesh = SubResource("SphereMesh_fkybt")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6014129, 0)
 
 [node name="Camera3D" type="Camera3D" parent="CameraPoint" unique_id=1509577641]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.6)
-
-[node name="InputComponent" type="Node" parent="." unique_id=501368586]
-unique_name_in_owner = true
-script = ExtResource("2_6t5aa")
-metadata/_custom_type_script = "uid://djmbhteric0yk"
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7066014)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=139199590 node_paths=PackedStringArray("body")]
 unique_name_in_owner = true
@@ -57,3 +52,7 @@ cam = NodePath("../CameraPoint/Camera3D")
 body = NodePath("..")
 head = NodePath("../CameraPoint")
 metadata/_custom_type_script = "uid://clef0ct1itcwv"
+
+[node name="InputComponent" type="Node" parent="." unique_id=25487865]
+unique_name_in_owner = true
+script = ExtResource("4_fkybt")

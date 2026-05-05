@@ -15,7 +15,7 @@ func input_tick(event:InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		body.rotate_y(-event.relative.x * mouseSens)
 		head.rotate_x(-event.relative.y * mouseSens)
-		head.rotation.x = clamp(cam.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+		head.rotation.x = clamp(head.rotation.x, deg_to_rad(-30), deg_to_rad(30))
 		
 		
 func tick(delta:float) -> void:
