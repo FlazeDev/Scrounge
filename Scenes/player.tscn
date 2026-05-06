@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://duvno4qy3abuo" path="res://Scripts/MovementComponent.gd" id="3_vgqql"]
 [ext_resource type="Script" uid="uid://cjuqnruiho2c2" path="res://Scripts/InputComponent.gd" id="4_fkybt"]
 [ext_resource type="Script" uid="uid://clef0ct1itcwv" path="res://Scripts/CameraComponent.gd" id="4_vgqql"]
+[ext_resource type="Script" uid="uid://dh7lghs8dv14u" path="res://Scripts/InteractionComponent.gd" id="5_fkybt"]
+[ext_resource type="Script" uid="uid://d3bljmlhgcbqc" path="res://Scripts/InventoryComponent.gd" id="6_x3wgy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 radius = 0.5180664
@@ -39,6 +41,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6014129, 0)
 [node name="Camera3D" type="Camera3D" parent="CameraPoint" unique_id=1509577641]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7066014)
 
+[node name="RayCast3D" type="RayCast3D" parent="CameraPoint/Camera3D" unique_id=313621134]
+target_position = Vector3(0, 0, -2)
+collide_with_areas = true
+
+[node name="Hand1" type="Node3D" parent="CameraPoint/Camera3D" unique_id=1746822474]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77606225, 0, -1.4954553)
+
 [node name="MovementComponent" type="Node" parent="." unique_id=139199590 node_paths=PackedStringArray("body")]
 unique_name_in_owner = true
 script = ExtResource("3_vgqql")
@@ -56,3 +65,14 @@ metadata/_custom_type_script = "uid://clef0ct1itcwv"
 [node name="InputComponent" type="Node" parent="." unique_id=25487865]
 unique_name_in_owner = true
 script = ExtResource("4_fkybt")
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=304115080 node_paths=PackedStringArray("iRay", "player")]
+script = ExtResource("5_fkybt")
+iRay = NodePath("../CameraPoint/Camera3D/RayCast3D")
+player = NodePath("..")
+metadata/_custom_type_script = "uid://dh7lghs8dv14u"
+
+[node name="InventoryComponent" type="Node" parent="." unique_id=778570238 node_paths=PackedStringArray("hand1")]
+script = ExtResource("6_x3wgy")
+hand1 = NodePath("../CameraPoint/Camera3D/Hand1")
+metadata/_custom_type_script = "uid://d3bljmlhgcbqc"

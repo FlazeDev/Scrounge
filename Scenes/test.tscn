@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://5rjy0t3pgonx"]
 
 [ext_resource type="PackedScene" uid="uid://c61og11agxi8b" path="res://Scenes/player.tscn" id="1_lc1oi"]
+[ext_resource type="Script" uid="uid://dkvukw88s7j15" path="res://Scripts/UsableComponent.gd" id="2_8od7v"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_lc1oi"]
 size = Vector3(10, 1, 10)
@@ -11,6 +12,15 @@ size = Vector3(10, 1, 10)
 [sub_resource type="BoxShape3D" id="BoxShape3D_8od7v"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_qc4db"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qc4db"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ys1qc"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8od7v"]
+albedo_color = Color(0, 1, 1, 1)
 
 [node name="Test" type="Node3D" unique_id=1275998367]
 
@@ -39,3 +49,30 @@ shape = SubResource("BoxShape3D_8od7v")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=577270415]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
 mesh = SubResource("BoxMesh_qc4db")
+
+[node name="InteractionTest" type="Area3D" parent="." unique_id=631894412]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.8337545, -18.751883)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionTest" unique_id=1990693359]
+shape = SubResource("BoxShape3D_qc4db")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InteractionTest" unique_id=2046528875]
+mesh = SubResource("BoxMesh_ys1qc")
+
+[node name="UsableComponent" type="Node" parent="InteractionTest" unique_id=1270048020]
+script = ExtResource("2_8od7v")
+metadata/_custom_type_script = "uid://dkvukw88s7j15"
+
+[node name="InteractionTest2" type="Area3D" parent="." unique_id=2030161690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6407158, 5.8337545, -18.751883)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionTest2" unique_id=635384335]
+shape = SubResource("BoxShape3D_qc4db")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InteractionTest2" unique_id=1886196697]
+mesh = SubResource("BoxMesh_ys1qc")
+surface_material_override/0 = SubResource("StandardMaterial3D_8od7v")
+
+[node name="UsableComponent" type="Node" parent="InteractionTest2" unique_id=803771382]
+script = ExtResource("2_8od7v")
+metadata/_custom_type_script = "uid://dkvukw88s7j15"
