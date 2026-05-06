@@ -18,6 +18,7 @@ func _physics_process(delta: float) -> void:
 	interaction.interact = input.wantsInteract
 	inventory.use = input.wantsUse
 	inventory.swap = input.wantsSwap
+	inventory.drop = input.wantsDrop
 	inventory.tick()
 	interaction.tick()
 	movement.tick(delta)

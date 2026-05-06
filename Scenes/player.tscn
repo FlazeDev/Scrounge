@@ -45,7 +45,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.7066014)
 target_position = Vector3(0, 0, -2)
 collide_with_areas = true
 
-[node name="Hand1" type="Node3D" parent="CameraPoint/Camera3D" unique_id=1746822474]
+[node name="Hand" type="Node3D" parent="CameraPoint/Camera3D" unique_id=1746822474]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77606225, 0, -1.4954553)
 
 [node name="MovementComponent" type="Node" parent="." unique_id=139199590 node_paths=PackedStringArray("body")]
@@ -72,7 +72,11 @@ iRay = NodePath("../CameraPoint/Camera3D/RayCast3D")
 player = NodePath("..")
 metadata/_custom_type_script = "uid://dh7lghs8dv14u"
 
-[node name="InventoryComponent" type="Node" parent="." unique_id=778570238 node_paths=PackedStringArray("hand1")]
+[node name="InventoryComponent" type="Node" parent="." unique_id=778570238 node_paths=PackedStringArray("hand", "dropPoint")]
 script = ExtResource("6_x3wgy")
-hand1 = NodePath("../CameraPoint/Camera3D/Hand1")
+hand = NodePath("../CameraPoint/Camera3D/Hand")
+dropPoint = NodePath("../Drop Point")
 metadata/_custom_type_script = "uid://d3bljmlhgcbqc"
+
+[node name="Drop Point" type="Node3D" parent="." unique_id=1260847829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.697, -1.5)

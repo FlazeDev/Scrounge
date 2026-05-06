@@ -3,9 +3,11 @@ extends Node
 
 var invSlots:Array[Node3D] = []
 var usable : Node
-@export var hand1:Node3D
+@export var hand:Node3D
+@export var dropPoint:Node3D
 var use := false
 var swap := false
+var drop := false
 
 func init_tick() -> void:
 	for i in 2:
@@ -15,7 +17,9 @@ func tick() -> void:
 	if use:
 		use_item()
 	if swap:
-		_swap()
+		swap_item()
+	if drop:
+		drop_item()
 
 func add_item(item:Node3D):
 	if invSlots[0] == null:
@@ -37,14 +41,15 @@ func use_item():
 		
 func update_model(item:Node):
 	item.position = Vector3(0, 0, 0)
-	if hand1.get_child_count() < 1:
-		hand1.add_child(item)
+	if hand.get_child_count() < 1:
+		hand.add_child(item)
 	else:
-		hand1.get_child(0).queue_free()
-		hand1.add_child(item)
+		hand.get_child(0).queue_free()
+		hand.add_child(item)
+		
 		
 
-func _swap():
+func swap_item():
 	if invSlots[1] != null:
 		var tempSlot = invSlots[0].duplicate()
 		invSlots[0] = invSlots[1].duplicate()
@@ -52,3 +57,14 @@ func _swap():
 		update_model(invSlots[0])
 	else:
 		print("nothing to swap")
+		
+func drop_item():
+	if invSlots[0] != null:
+		invSlots[0] = invSlots[1]
+		invSlots[1] = null
+		var temp = hand.get_child(0).duplicate()
+		hand.get_child(0).queue_free()
+		get_tree().current_scene.add_child(temp)
+		temp.global_position = dropPoint.global_position
+		if invSlots[0] != null:
+			update_model(invSlots[0])

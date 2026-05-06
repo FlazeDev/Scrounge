@@ -8,6 +8,7 @@ var wantsSprint := false
 var wantsInteract := false
 var wantsUse := false
 var wantsSwap := false
+var wantsDrop := false
 
 func tick() -> void:
 	inputDir = Input.get_vector("left", "right", "up", "down").normalized()
@@ -17,3 +18,4 @@ func tick() -> void:
 	wantsInteract = Input.is_action_just_pressed("interact")
 	wantsUse = Input.is_action_just_pressed("use")
 	wantsSwap = Input.is_action_just_pressed("swap")
+	wantsDrop = Input.is_action_just_pressed("drop")
