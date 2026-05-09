@@ -1,11 +1,13 @@
 [gd_scene format=3 uid="uid://c61og11agxi8b"]
 
 [ext_resource type="Script" uid="uid://csbh0lqc378h8" path="res://Scripts/player.gd" id="1_6t5aa"]
+[ext_resource type="Script" uid="uid://cym2rvbcyflth" path="res://Scripts/StaminaComponent.gd" id="2_8erm5"]
 [ext_resource type="Script" uid="uid://duvno4qy3abuo" path="res://Scripts/MovementComponent.gd" id="3_vgqql"]
 [ext_resource type="Script" uid="uid://cjuqnruiho2c2" path="res://Scripts/InputComponent.gd" id="4_fkybt"]
 [ext_resource type="Script" uid="uid://clef0ct1itcwv" path="res://Scripts/CameraComponent.gd" id="4_vgqql"]
 [ext_resource type="Script" uid="uid://dh7lghs8dv14u" path="res://Scripts/InteractionComponent.gd" id="5_fkybt"]
 [ext_resource type="Script" uid="uid://d3bljmlhgcbqc" path="res://Scripts/InventoryComponent.gd" id="6_x3wgy"]
+[ext_resource type="Script" uid="uid://bio6rai4bqtfo" path="res://Scripts/HealthComponent.gd" id="7_3smsa"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cvnsp"]
 radius = 0.5180664
@@ -35,6 +37,9 @@ mesh = SubResource("SphereMesh_fkybt")
 transform = Transform3D(0.40969932, 0, 0, 0, 0.36535427, 0, 0, 0, 0.4064092, -0.19740108, 0.45511442, -0.40915942)
 mesh = SubResource("SphereMesh_fkybt")
 
+[node name="Drop Point" type="Node3D" parent="." unique_id=1260847829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.697, -1.5)
+
 [node name="CameraPoint" type="Node3D" parent="." unique_id=1422160516]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6014129, 0)
 
@@ -48,10 +53,42 @@ collide_with_areas = true
 [node name="Hand" type="Node3D" parent="CameraPoint/Camera3D" unique_id=1746822474]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.77606225, 0, -1.4954553)
 
-[node name="MovementComponent" type="Node" parent="." unique_id=139199590 node_paths=PackedStringArray("body")]
+[node name="UI" type="CanvasLayer" parent="." unique_id=1661849730]
+
+[node name="HealthBar" type="ProgressBar" parent="UI" unique_id=1260949074]
+offset_left = 12.0
+offset_top = 12.0
+offset_right = 314.0
+offset_bottom = 67.0
+rounded = true
+
+[node name="Stamina Bar" type="ProgressBar" parent="UI" unique_id=187747948]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -151.0
+offset_top = -80.0
+offset_right = 151.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+rounded = true
+
+[node name="StaminaComponent" type="Node" parent="." unique_id=1934206206 node_paths=PackedStringArray("staminaBar")]
+unique_name_in_owner = true
+script = ExtResource("2_8erm5")
+maxStamina = 100.0
+staminaBar = NodePath("../UI/Stamina Bar")
+metadata/_custom_type_script = "uid://cym2rvbcyflth"
+
+[node name="MovementComponent" type="Node" parent="." unique_id=139199590 node_paths=PackedStringArray("body", "camera", "stamina")]
 unique_name_in_owner = true
 script = ExtResource("3_vgqql")
 body = NodePath("..")
+camera = NodePath("../CameraPoint/Camera3D")
+stamina = NodePath("../StaminaComponent")
 metadata/_custom_type_script = "uid://duvno4qy3abuo"
 
 [node name="CameraComponent" type="Node" parent="." unique_id=1262803549 node_paths=PackedStringArray("cam", "body", "head")]
@@ -62,21 +99,29 @@ body = NodePath("..")
 head = NodePath("../CameraPoint")
 metadata/_custom_type_script = "uid://clef0ct1itcwv"
 
-[node name="InputComponent" type="Node" parent="." unique_id=25487865]
-unique_name_in_owner = true
-script = ExtResource("4_fkybt")
-
 [node name="InteractionComponent" type="Node" parent="." unique_id=304115080 node_paths=PackedStringArray("iRay", "player")]
+unique_name_in_owner = true
 script = ExtResource("5_fkybt")
 iRay = NodePath("../CameraPoint/Camera3D/RayCast3D")
 player = NodePath("..")
 metadata/_custom_type_script = "uid://dh7lghs8dv14u"
 
-[node name="InventoryComponent" type="Node" parent="." unique_id=778570238 node_paths=PackedStringArray("hand", "dropPoint")]
+[node name="InventoryComponent" type="Node" parent="." unique_id=778570238 node_paths=PackedStringArray("hand", "dropPoint", "player")]
+unique_name_in_owner = true
 script = ExtResource("6_x3wgy")
 hand = NodePath("../CameraPoint/Camera3D/Hand")
 dropPoint = NodePath("../Drop Point")
+player = NodePath("..")
 metadata/_custom_type_script = "uid://d3bljmlhgcbqc"
 
-[node name="Drop Point" type="Node3D" parent="." unique_id=1260847829]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.697, -1.5)
+[node name="InputComponent" type="Node" parent="." unique_id=201468652]
+unique_name_in_owner = true
+script = ExtResource("4_fkybt")
+metadata/_custom_type_script = "uid://cjuqnruiho2c2"
+
+[node name="HealthComponent" type="Node" parent="." unique_id=706671434 node_paths=PackedStringArray("healthBar")]
+unique_name_in_owner = true
+script = ExtResource("7_3smsa")
+maxHealth = 100.0
+healthBar = NodePath("../UI/HealthBar")
+metadata/_custom_type_script = "uid://bio6rai4bqtfo"

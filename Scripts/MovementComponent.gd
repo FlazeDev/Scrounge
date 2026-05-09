@@ -9,7 +9,12 @@ var jumpVel := 17.0
 var jump := false
 var sprint := false
 @export var body:CharacterBody3D
-var camera : Camera3D
+@export var camera : Camera3D
+@export var stamina:StaminaComponent
+var sprintCost = 1
+var dash := false
+var dashSpeed := 40
+var dashCost = 20
 
 func _ready() -> void:
 	if not body:
@@ -19,14 +24,17 @@ func tick(delta: float) -> void:
 	if not body:
 		return
 	var moveDir := (body.transform.basis * Vector3(dir.x, 0, dir.y)).normalized()
-	if !sprint:
-		body.velocity.x = moveDir.x * speed
-		body.velocity.z = moveDir.z * speed
-	elif sprint:
+	if dash && stamina.stamina > dashCost:
+		var dashDir = -camera.global_transform.basis.z.normalized()
+		body.velocity = dashDir * dashSpeed
+		stamina.reduce(dashCost)
+	elif sprint && stamina.stamina > sprintCost:
 		body.velocity.x = moveDir.x * sprintSpeed
 		body.velocity.z = moveDir.z * sprintSpeed
-
-
+		stamina.reduce(sprintCost)
+	else:
+		body.velocity.x = moveDir.x * speed
+		body.velocity.z = moveDir.z * speed
 
 	if !body.is_on_floor():
 		body.velocity += body.get_gravity() * gravityMultiplier * delta
@@ -34,6 +42,4 @@ func tick(delta: float) -> void:
 		body.velocity.y = jumpVel
 		jump = false
 
-
-	#print(jump)
 	body.move_and_slide()

@@ -5,11 +5,12 @@ var invSlots:Array[Node3D] = []
 var usable : Node
 @export var hand:Node3D
 @export var dropPoint:Node3D
+@export var player:CharacterBody3D
 var use := false
 var swap := false
 var drop := false
 
-func init_tick() -> void:
+func ready_tick() -> void:
 	for i in 2:
 		invSlots.append(null)
 
@@ -35,7 +36,7 @@ func add_item(item:Node3D):
 func use_item():
 	if invSlots[0] != null:
 		usable = invSlots[0].get_node("UsableComponent")
-		usable.use()
+		usable.use(player)
 	else:
 		print("Nothing to use")
 		
